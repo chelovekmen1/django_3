@@ -14,7 +14,6 @@ class HabitForm(forms.ModelForm):
         }
 
 class CustomUserCreationForm(UserCreationForm):
-            # Добавляем поле email вручную
     email = forms.EmailField(required=True, label="Email")
 
     class Meta(UserCreationForm.Meta):
@@ -23,7 +22,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.email = self.cleaned_data['email']  # Сохраняем email в базу
+        user.email = self.cleaned_data['email']
         if commit:
             user.save()
         return user

@@ -2,110 +2,172 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Достижения — SiteHabits</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background-color: #f7f9fc;
+            background-color: #f8fafc;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: #333;
+            color: #1e293b;
             padding: 40px 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
+        }
+        .navbar {
             background: #ffffff;
-            padding: 30px;
+            padding: 14px 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-        .nav-links {
             margin-bottom: 20px;
-            font-size: 14px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .nav-links a {
+        .navbar-links {
+            display: flex;
+            gap: 16px;
+        }
+        .navbar-links a {
             color: #4f46e5;
             text-decoration: none;
-            margin-right: 15px;
             font-weight: 600;
+            font-size: 15px;
         }
-        .nav-links a:hover { text-decoration: underline; }
-        h1 { font-size: 24px; margin-bottom: 20px; color: #1a1a1a; }
-        form { margin-bottom: 30px; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; }
-        form input, form textarea {
+        .navbar-links a:hover { text-decoration: underline; }
+        .user-info {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        h1 { font-size: 22px; margin-bottom: 16px; color: #0f172a; }
+        .form-group {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 24px;
+        }
+        .input-field, textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 10px 14px;
             margin-bottom: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid #cbd5e1;
             border-radius: 8px;
             font-size: 14px;
             outline: none;
             font-family: inherit;
         }
-        form input:focus, form textarea:focus { border-color: #4f46e5; }
-        .btn-submit {
+        .input-field:focus, textarea:focus { border-color: #4f46e5; }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .btn {
             background-color: #4f46e5;
-            color: white;
+            color: #ffffff;
             border: none;
-            padding: 10px 16px;
+            padding: 10px 18px;
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
-            border-radius: 8px;
             cursor: pointer;
             width: 100%;
         }
-        .btn-submit:hover { background-color: #4338ca; }
-        .achievement-card {
-            background: #fff;
+        .btn:hover { background-color: #4338ca; }
+        .btn-search { width: auto; }
+
+        /* Карточка достижения с защитой от вылезания текста */
+        .item-card {
+            background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-left: 4px solid #4f46e5;
-            padding: 15px;
+            border-left: 4px solid #10b981;
+            padding: 16px;
             border-radius: 8px;
             margin-bottom: 12px;
+            position: relative;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            padding-right: 40px;
         }
-        .achievement-card h3 { font-size: 16px; margin-bottom: 5px; color: #1e293b; }
-        .achievement-card p { font-size: 14px; color: #64748b; margin-bottom: 8px; }
-        .achievement-card .date { font-size: 12px; color: #94a3b8; }
-        .empty-text { color: #888; font-size: 14px; text-align: center; padding: 20px; }
+        .item-card h3 { font-size: 16px; color: #0f172a; margin-bottom: 4px; }
+        .item-card p { font-size: 14px; color: #64748b; margin-bottom: 6px; }
+        .item-card .date { font-size: 12px; color: #94a3b8; }
+
+        /* Кнопка удаления */
+        .delete-btn {
+            position: absolute;
+            top: 14px;
+            right: 15px;
+            color: #ef4444;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .delete-btn:hover { color: #dc2626; }
+
+        .empty-text { color: #94a3b8; text-align: center; padding: 24px 0; font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div style="background: #ffffff; padding: 12px 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e2e8f0;">
-            <a href="/habits/" style="color: #4f46e5; text-decoration: none; font-weight: 600; margin-right: 15px;">Привычки</a>
-            <a href="/achievements/" style="color: #4f46e5; text-decoration: none; font-weight: 600; margin-right: 15px;">Достижения 🏆</a>
-            <span style="color: #64748b; font-size: 14px; float: right;">{{ request.user.username }}</span>
-        </div>
-        <div class="nav-links">
-            <a href="/habits/">← Назад к привычкам</a>
-        </div>
-
-        <h1>Стена достижений 🏆</h1>
-
-        <!-- Форма добавления нового достижения -->
-        <form method="POST">
-            {% csrf_token %}
-            <input type="text" name="title" placeholder="Название достижения (например: 7 дней без пропусков)" required>
-            <textarea name="description" placeholder="Описание или подробности победы..." rows="2"></textarea>
-            <button type="submit" class="btn-submit">Добавить достижение</button>
-        </form>
-
-        <!-- Список достижений -->
-        <div class="achievements-list">
-            {% for item in achievements %}
-            <div class="achievement-card" style="position: relative;">
-                <h3>{{ item.title }}</h3>
-                {% if item.description %}
-                    <p>{{ item.description }}</p>
-                {% endif %}
-                <div class="date">Получено: {{ item.date }}</div>
-
-                <!-- Кнопка удаления -->
-                <a href="/achievements/delete/{{ item.id }}/" style="position: absolute; top: 12px; right: 15px; color: #ef4444; text-decoration: none; font-size: 14px; font-weight: bold;" title="Удалить">✕</a>
+        <!-- Шапка -->
+        <div class="navbar">
+            <div class="navbar-links">
+                <a href="/habits/">Привычки</a>
+                <a href="/achievements/">Достижения 🏆</a>
             </div>
-            {% empty %}
-                <div class="empty-text">У тебя пока нет записанных достижений. Самое время добавить первое!</div>
-            {% endfor %}
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span class="user-info">👤 {{ request.user.username }}</span>
+                <a href="/logout/" style="color: #ef4444; text-decoration: none; font-size: 14px; font-weight: 600;">Выйти</a>
+            </div>
+        </div>
+
+        <!-- Основной блок -->
+        <div class="card">
+            <h1>Стена достижений 🏆</h1>
+
+            <!-- Форма добавления достижения -->
+            <form method="POST" class="form-group">
+                {% csrf_token %}
+                <input type="text" name="title" placeholder="Название достижения..." class="input-field" required>
+                <textarea name="description" placeholder="Описание..." rows="2"></textarea>
+                <button type="submit" class="btn">Добавить достижение</button>
+            </form>
+
+            <!-- Поиск -->
+            <form method="GET" class="search-box">
+                <input type="text" name="q" value="{{ search_query|default:'' }}" placeholder="Поиск достижений..." class="input-field" style="margin-bottom: 0;">
+                <button type="submit" class="btn btn-search">Найти</button>
+            </form>
+
+            <!-- Список -->
+            <div class="items-list">
+                {% for item in achievements %}
+                    <div class="item-card">
+                        <h3>{{ item.title }}</h3>
+                        {% if item.description %}
+                            <p>{{ item.description }}</p>
+                        {% endif %}
+                        <div class="date">Получено: {{ item.date }}</div>
+                        <a href="/achievements/delete/{{ item.id }}/" class="delete-btn" title="Удалить">✕</a>
+                    </div>
+                {% empty %}
+                    <div class="empty-text">Достижения не найдены.</div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </body>
